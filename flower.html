@@ -109,6 +109,17 @@
 
         }
 
+        const listener = new THREE.AudioListener();
+        camera.add(listener);
+        const AudioLoader = new THREE.AudioLoader();
+        const SESound = new THREE.Audio(listener);
+        AudioLoader.load('./SE.mp3', function (buffer) {
+            SESound.setBuffer(buffer);
+            SESound.setLoop(false);
+            SESound.setVolume(0.5);
+
+        });
+
         function animate() {
             requestAnimationFrame(animate);
 
@@ -128,6 +139,9 @@
             let z = -1 * pos.getComponent(1);
             console.log(x, y, z);
             const flower = createflower(x, y, z);
+
+            SESound.play();
+
         });
 
         renderer.setAnimationLoop((delta) => {
